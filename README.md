@@ -10,11 +10,22 @@ Get personal access token from Figshare -> Applications.
 Then `gh set secret FIGSHARE_TOKEN`.
 
 ```bash
-git tag -a v0.4 -m "new release test"
+TAG=v0.5
+git tag -a $TAG -m "new release test"
 git push --follow-tags
-gh release create v0.4
+gh release create $TAG
 ```
 
 Disable the test workflow using
 `gh workflow disable "github-actions-demo.yml"`
+
+I set `.github/workflows/figshare_upload.yml` to upload
+to figshare only on a new release being published, so it
+won't release unless I execute the `gh release create` command
+or create a release from the github webpage.
+
+When a release is published, all the files get uploaded
+to figshare. Moreover, the old files in that figshare item
+are not deleted or overwritten. Instead, we now have copies of
+both. We could delete the older copies if we wish.
 
